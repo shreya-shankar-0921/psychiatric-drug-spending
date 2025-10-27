@@ -1,7 +1,7 @@
 ---
 title: "U.S Medicaid Drug Spending (2019-2023)"
 author: Shreya Shankar
-output: html_document
+output: github_document
 ---
 
 This repository analyzes U.S. Medicaid drug spending for 2019–2023 with a focus on psychiatric medications (antidepressants, antipsychotics, mood stabilizers, anxiolytics, ADHD agents, hypnotics, and selected SUD treatments). We attribute spending changes to **price** (average spend per dose unit) and **volume** (dose units).
