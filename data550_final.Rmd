@@ -1,0 +1,80 @@
+---
+title: "U.S Medicaid Drug Spending (2019-2023)"
+author: Shreya Shankar
+output: html_document
+---
+
+
+# Introduction
+
+This report utilizes U.S. Medicaid drug spending from 2019–2023, using the dataset loaded into the data object. The original file includes all covered drugs across years and manufacturers, with multiple rows per product reflecting different formulations, strengths, and manufacturers.
+
+For this analysis, I narrowed the scope to medications commonly used in psychiatric care—including antidepressants, antipsychotics, mood stabilizers, anxiolytics, ADHD agents, hypnotics/sleep medications, and selected treatments for substance use disorders. To define this group, I cross-referenced generic names in the dataset with publicly available [medication lists](https://www.nami.org/about-mental-illness/treatments/mental-health-medications/) from the National Alliance on Mental Illness (NAMI) and constructed a curated set of generic names to identify relevant rows.
+
+*This report was initially constructed for use by the Center for Medicaid and Medicare Innovation (CMMI). I have repurposed my past analytic work for the sake of this class's final project.*
+
+
+```{r, library-load, include= FALSE}
+  library(gt)
+  library(dplyr)
+  library(readr)
+  library(tidyr)
+  library(ggplot2)
+  library(forcats)
+  library(scales)
+  library(stringr)
+library(ggrepel)
+```
+
+```{r, clean-data, include= FALSE}
+cleaned_data <- readRDS(file.path("outputs", "00_clean_data.rds"))
+```
+
+
+
+# Decomposition Table
+
+This table presents a price vs. volume decomposition of spending growth for psychiatric medications in Medicaid. For each `generic name`, it compares total spend between 2019/2023 (and, when available, 2022/2023). The goal is to attribute the change in spending to two underlying drivers:
+
+* __Price effects__: changes in average spend per dose unit
+
+* __Volume effects__: changes in total dose units dispensed
+
+```{r, table1, echo= FALSE}
+tbl_gt <- readRDS(file.path("outputs", "table1.rds"))
+tbl_gt 
+```
+
+### Columns and elements
+
+* __Period__: The comparison window (e.g., 2019→2023).
+
+* __Row group__: Drugs are grouped by Period to make year-to-year comparisons visually clear.
+
+* __Row label__: The generic drug name.
+
+* __Spend (From) and Spend (To)__: Total spending at the start and end of the period, respectively.
+
+* __Δ Spend__: The net change in spending. *This is the quantity being explained by the decomposition.*
+
+* __Price Contribution__: The portion of Δ Spend attributable to changes in average spending per dose unit
+
+* __% from Price__: The share of Δ Spend attributable to price changes.
+
+* __Volume Contribution__: The portion of Δ Spend attributable to changes in dose units.
+
+* __% from Volume__: The share of Δ Spend attributable to volume changes
+
+
+# Figure
+
+This figure visualizes the same price–volume decomposition from the prior table, but drug-by-drug as waterfall charts. Each panel starts with `"Start"` spend *(left gray bar)* and ends with `“End”` spend *(right gray bar)*. The two bars in the middle attribute the change to its drivers: the green bar is the price effect, and the blue bar is the volume effect. Bars can point up or down: a downward price bar means prices fell and offset part of the overall increase; an upward blue bar means utilization grew and pushed spend higher.
+
+
+```{r figure1, fig.width=14, fig.height=18, fig.retina=3, echo=FALSE}
+waterfall_chart <- readRDS(file.path("outputs", "figure1.rds"))
+waterfall_chart
+```
+
+For analysis, read each panel left to right: start with the 2019 level, add/subtract the price bar, then add/subtract the volume bar to arrive at the 2023 level. Together with the table, these waterfalls show how top movers got there, for example, where rising spend is primarily caused by utilization (large blue, small green), where it’s mainly price or mix, and where the two forces move in opposite directions (one negative, one positive) to produce the net change shown in the tabular results.
+
