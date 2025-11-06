@@ -12,17 +12,7 @@ per dose unit) and **volume** (dose units).
 
 ## How to generate the final report
 
-1)  Install R packages
-
-`install.packages(c(`
-
-`"rmarkdown","dplyr","readr","tidyr","stringr","scales",`
-
-`"gt","ggplot2","forcats","ggrepel"`
-
-`))`
-
-2)  Compile the report
+Compile the report:
 
 Run `make` in the terminal to generate the .html output along with the
 figure and table data objects.
