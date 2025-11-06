@@ -13,7 +13,7 @@ outputs/figure1.png: code/02_make_figure.R outputs/00_clean_data.rds
 	
 PHONY: clean
 clean:
-	rm outputs/*
+	rm outputs/* *.html
 	
 PHONY: analyses
 analyses: outputs/00_clean_data.rds outputs/table1.rds outputs/figure1.png
