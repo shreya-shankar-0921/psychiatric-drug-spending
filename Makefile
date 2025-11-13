@@ -16,4 +16,8 @@ clean:
 	rm outputs/* *.html
 	
 PHONY: analyses
-analyses: outputs/00_clean_data.rds outputs/table1.rds outputs/figure1.png
+	analyses: outputs/00_clean_data.rds outputs/table1.rds outputs/figure1.png
+
+.PHONY: install
+install:
+	Rscript -e "renv::restore(prompt = FALSE)"
