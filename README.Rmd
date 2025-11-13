@@ -12,6 +12,8 @@ This repository analyzes U.S. Medicaid drug spending for 2019–2023 with a focu
 
 Compile the report:
 
+Run `make install` in the terminal to ensure all the packages are uploaded and up to date.
+
 Run `make` in the terminal to generate the .html output along with the figure and table data objects.
 
 ------------
