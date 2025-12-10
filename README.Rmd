@@ -81,13 +81,19 @@ You can pull it directly with:
 
 `docker pull sshankar0921/final-project-report:latest`
 
-### 2. Building the image locally (optional)
 
-*If you prefer to build the image yourself instead of pulling from DockerHub, run the following command from the project root:*
+### 2. Building the Docker image locally (optional)
+
+If you prefer to build the image yourself instead of pulling from DockerHub, run one of the following from the project root (where the `Dockerfile` is located):
+
+**On Intel Mac / Linux / Windows**
 
 `docker build -t sshankar0921/final-project-report:latest .`
 
-This will create a local image tagged `sshankar0921/final-project-report:latest` that can be used in the commands below.
+**On Apple Silicon (M1/M2/M3) Macs**
+
+`docker build --platform=linux/amd64 -t sshankar0921/final-project-report:latest .`
+
 
 ### 3. Running the automated report build with Docker
 
