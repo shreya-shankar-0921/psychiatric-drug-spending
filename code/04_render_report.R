@@ -1,7 +1,7 @@
 rmarkdown::render(
-  input         = "data550_final.Rmd",
+  input         = "report.Rmd",
   output_format = "all",
-  output_dir    = ".",   # <-- save to base project directory
+  output_dir    = "report",   
   clean         = TRUE,
   envir         = new.env(parent = globalenv()),
   encoding      = "UTF-8"
