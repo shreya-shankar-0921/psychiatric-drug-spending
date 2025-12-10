@@ -51,8 +51,17 @@ This table presents a price vs. volume decomposition of spending growth for psyc
 * __Volume effects__: changes in total dose units dispensed
 
 ```{r, table1, echo= FALSE}
+
+if (!dir.exists("outputs")) {
+  dir.create("outputs", recursive = TRUE)
+}
+
+if (!file.exists(file.path("outputs", "table1.rds"))) {
+  source("code/01_make_table1.R")
+}
+
 tbl_gt <- readRDS(file.path("outputs", "table1.rds"))
-tbl_gt 
+tbl_gt
 ```
 
 ### Columns and elements
@@ -82,6 +91,14 @@ This figure visualizes the same price–volume decomposition from the prior tabl
 
 
 ```{r figure1, fig.width=14, fig.height=18, fig.retina=3, echo=FALSE}
+if (!dir.exists("outputs")) {
+  dir.create("outputs", recursive = TRUE)
+}
+
+if (!file.exists(file.path("outputs", "figure1.rds"))) {
+  source("code/02_make_figure.R")  # adjust path/name
+}
+
 waterfall_chart <- readRDS(file.path("outputs", "figure1.rds"))
 waterfall_chart
 ```
