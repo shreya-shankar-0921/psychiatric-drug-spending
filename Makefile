@@ -1,5 +1,5 @@
 
-data550_final.html: code/04_render_report.R data550_final.Rmd analyses
+report/report.html: code/04_render_report.R report.Rmd analyses
 	Rscript code/04_render_report.R
 
 outputs/00_clean_data.rds: code/00_clean_data.R raw_data/drugspending_data.csv
@@ -13,7 +13,7 @@ outputs/figure1.png: code/02_make_figure.R outputs/00_clean_data.rds
 	
 PHONY: clean
 clean:
-	rm outputs/* *.html
+	rm outputs/* report/*
 	
 PHONY: analyses
 analyses: outputs/00_clean_data.rds outputs/table1.rds outputs/figure1.png
@@ -22,3 +22,12 @@ analyses: outputs/00_clean_data.rds outputs/table1.rds outputs/figure1.png
 .PHONY: install
 install:
 	Rscript -e "renv::restore(prompt = FALSE)"
+
+
+docker_report_mac:
+	mkdir -p report
+	docker run --rm -v "$$(pwd)/report:/home/rstudio/project/report" sshankar0921/final-project-report:latest
+
+docker_report_win:
+	mkdir -p report
+	docker run --rm -v "/$$(pwd)/report:/home/rstudio/project/report" sshankar0921/final-project-report:latest
