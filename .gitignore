@@ -1,3 +1,4 @@
 outputs/*.rds
 outputs/*.png
 *.html
+report/*
